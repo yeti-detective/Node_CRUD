@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongo = require('mongodb').MongoClient;
 
-var port = 8080;
 var db;
 
 app.set('view engine', 'ejs');
@@ -23,20 +22,15 @@ app.post('/quotes', (req, res) => {
         
         console.log('saved to database');
         res.redirect('/');
-    })
+    });
 });
 
 
 mongo.connect('mongodb://quote-app:Quote-App@ds157278.mlab.com:57278/yetis_first_db', (err, database) => {
-    if(err){throw err};
+    if(err){throw err}
     db = database;
 
-    app.listen(port, function() {
-    console.log('listening on ' + port.toString());
+    app.listen(8080, function() {
+    console.log('listening on 8080');
     });
-
-    db.collection('quotes').find().toArray((err, results) => {
-        console.log(results);
-    })
-
 })
